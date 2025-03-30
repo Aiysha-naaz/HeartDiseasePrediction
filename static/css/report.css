@@ -1,0 +1,161 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    display: flex; /* Align the content centrally */
+    justify-content: center; /* Center horizontally */
+    align-items: flex-start; /* Start all content at the top */
+    min-height: 100vh;
+}
+
+/* Paragraph Styling */
+p {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+}
+
+/* Header */
+.report-header {
+    color: red;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-bottom: 2px solid #ff4d4d;
+    background-color: #fff5f5;
+    margin-bottom: 20px;
+    width: 100%; /* Ensure it spans the full width */
+}
+
+/* Report Container */
+.container {
+    width: 85%;
+    max-width: 800px;
+    background: #ffffff;
+    margin: 30px auto; /* Center container */
+    padding: 50px; /* Adjust spacing for uniformity */
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    line-height: 1.8;
+    word-spacing: 3px;
+    text-align: justify; /* For proper alignment of text */
+}
+h3{
+    color: red;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+/* Report Card */
+.report-card {
+   
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+   
+}
+
+/* Bold Styling for Report Section Labels */
+.report-card h2 {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #ff4d4d;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.report-card p {
+    margin: 10px 0;
+    font-size: 1rem;
+}
+
+.report-card p strong {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    font-size: 0.9rem;
+    color: grey;
+    padding: 15px;
+    margin-top: 30px;
+    border-top: 1px solid #ccc;
+    background: #fff;
+    width: 100%; /* Ensure it aligns with the container width */
+}
+
+/* Button */
+button {
+    display: inline-block;
+    padding: 12px 20px;
+    background: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+a{
+    text-decoration: none;
+}
+
+button:hover {
+    background: darkred;
+    transform: translateY(-3px);
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+
+/* Patient Details Section */
+.patient {
+    list-style-type: none; /* Remove bullet points */
+    padding: 20px;
+    margin: 50px auto; /* Center the list with proper margins */
+    width: 70%; /* Set width for a clean look */
+    font-size: 1rem; /* Standard font size */
+    line-height: 1.8; /* Add proper line spacing */
+    border: 1px solid #ddd; /* Subtle border for professional style */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px; /* Padding inside the box */
+    background-color: #f9f9f9; /* Light background for contrast */
+}
+
+.patient li {
+    display: flex; /* Create a horizontal row for key-value */
+    justify-content: space-between; /* Space between key and value */
+    padding: 8px 0; /* Add vertical padding between items */
+    border-bottom: 1px dashed #ccc; /* Dashed separator between rows */
+}
+
+.patient li:last-child {
+    border-bottom: none; /* Remove border from the last item */
+}
+
+.patient li strong {
+    color: #444; /* Professional gray color for keys */
+    font-weight: bold; /* Emphasize the keys */
+}
+.patient li span {
+    color: #000; /* Darker color for values */
+    font-weight: normal; /* Subtle contrast with the key */
+}

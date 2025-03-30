@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CardioVascular</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <script src="https://kit.fontawesome.com/4f2d5c20d3.js" crossorigin="anonymous"></script> 
+</head>
+<body>
+
+    
+    <div class="scroll-down" id="scrollDown">
+        <i class="fas fa-arrow-down"></i> 
+    </div>
+
+    <div class="background-container">
+        <nav class="navbar navbar-expand-lg bg-transparent fs-5">
+            <div class="container">
+                <a class="navbar-brand text-white ms-5" href="{{ url_for('home') }}">
+                    <i class="fa-solid fa-hand-holding-heart"></i>
+                    <b>Cardio</b><span>Vascular</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link active text-danger fw-bold ms-5 m-3" href="{{ url_for('home') }}">Home</a>
+                        <a class="nav-link text-white fw-bold m-3" href="{{ url_for('about') }}">About</a>
+                        <a class="nav-link text-white fw-bold m-3" href="{{ url_for('predict') }}">Prediction</a>
+                        <a class="nav-link text-white fw-bold m-3" href="{{ url_for('report') }}">Report</a>
+                    </div>
+                </div>
+                <button class="btn btn-outline-danger mt-4 me-5" type="button">Login</button>
+            </div>
+        </nav>
+
+        <div class="bgc">
+            <div class="img">
+                <div class="overlay-text">
+                    <p><span>Cardio</span>Vascular</p>
+                    <p id="para">Heart Disease Prediction System</p>
+                </div>
+            </div>
+            <div class="video">
+                <video autoplay loop muted>
+                    <source src="{{ url_for('static', filename='video/video.mp4') }}" type="video/mp4">
+                </video>
+            </div>
+        </div>
+
+        <div class="about">
+
+            <div class="box1">
+                <div class="hImg">
+                  
+                </div>
+
+                <div class="text1">
+                <h2>The Heart: Your Body’s Lifeline ❤️</h2>
+               <p>Welcome to the journey of heart health! Your heart is the engine that keeps you going, tirelessly pumping blood and oxygen to fuel your body and mind. It’s the rhythm of your life, beating non-stop to keep you active, energized, and thriving.</p>
+               <p>Just like any engine, your heart needs care to function at its best. A healthy lifestyle—filled with nutritious food, regular exercise, stress management, and good sleep—is the key to a strong heart. Small daily habits, like staying hydrated and taking a brisk walk, can make a big difference.</p>
+               <p>Your heart is more than an organ—it’s your life’s pulse, your constant companion. Show it love, treat it well, and let it lead you to a happier, healthier life! ❤️</p>
+                </div>
+            </div>
+
+            <div class="box2">
+                <div class="text2">
+                    <h2>About Our System</h2>
+                    <p>Your heart beats tirelessly, keeping you alive every moment. But what if you could predict and prevent heart disease before it becomes a threat? That is exactly what our system helps you do.</p>
+                    <p>Using machine learning and data analysis, our tool examines key health factors like age, blood pressure, and cholesterol to assess your risk of heart disease. It goes beyond just detection by providing insights into different types of heart diseases, their symptoms, causes, and essential health tips to help you stay informed and take action.</p>
+
+                    <a class="nav-link text-white fw-bold m-3" href="{{ url_for('predict') }}"><button class="btn btn-outline-danger mt-4 me-5" type="button">Check Out</button></a>
+            
+
+                </div>
+
+                <div class="hImg2">
+
+                </div>
+            </div>
+
+           
+        </div> 
+
+        <div class="predict">
+            <h1 class="text">Predict your chance of having</h1>
+            <h1 class="text">a heart disease because</h1>
+            <h1 class="text">prevention is better than cure!</h1>
+            <a class="nav-link text-white fw-bold m-3" href="{{ url_for('predict') }}"><button class="btn btn-outline-danger mt-4 me-5" type="button">Predict</button></a>
+            
+        </div>
+
+        <div class="tagline">
+          <h6>"Listen to Your Heart Before It’s Too Late – Predict, Prevent, and Stay Healthy!" ❤️</h6>
+        </div>
+    </div>
+
+    <script>
+       const scrollDownButton = document.getElementById("scrollDown");
+
+window.addEventListener("scroll", () => {
+    let scrollPosition = window.scrollY + window.innerHeight;
+    let pageHeight = document.documentElement.scrollHeight;
+
+    if (scrollPosition >= pageHeight - 10) {
+        scrollDownButton.classList.add("hidden"); // Hide at the bottom
+    } else {
+        scrollDownButton.classList.remove("hidden"); // Show while scrolling
+    }
+});
+
+scrollDownButton.addEventListener("click", () => {
+    window.scrollBy({ top: window.innerHeight, behavior: "smooth" }); // Scroll down smoothly
+});
+
+    </script> 
+
+
+<!-- 
+<script>const scrollDownButton = document.getElementById("scrollDown");
+    const textContainer = document.querySelector(".about"); // Target the text
+    
+    window.addEventListener("scroll", () => {
+        let scrollPosition = window.scrollY + window.innerHeight;
+        let pageHeight = document.documentElement.scrollHeight;
+    
+        if (scrollPosition >= pageHeight - 10) {
+            scrollDownButton.classList.add("hidden"); // Hide at the bottom
+        } else {
+            scrollDownButton.classList.remove("hidden"); // Show while scrolling
+        }
+    });
+    
+    scrollDownButton.addEventListener("click", () => {
+        window.scrollBy({ top: window.innerHeight, behavior: "smooth" }); // Scroll down smoothly
+    
+        // Delay text appearance to match scroll
+        setTimeout(() => {
+            textContainer.classList.add("show-text"); // Add animation class
+        }, 800); // Adjust delay as needed
+    });
+    </script> -->
+
+    
+
+    <!-- Bootstrap JS -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script> -->
+   
+</body>
+</html>

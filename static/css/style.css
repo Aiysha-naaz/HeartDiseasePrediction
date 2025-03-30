@@ -1,0 +1,187 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: ghostwhite;
+    color: black;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+body::-webkit-scrollbar {
+    display: none; /* Hides scrollbar in Chrome, Safari, and Edge */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto; /* Centers the container */
+    padding: 20px;
+    border-radius: 10px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+h1 {
+    color: #ff3333;
+    text-align: center;
+}
+
+/* Form container styling */
+.form-container {
+    width: 100%;
+    max-width: 600px; /* Limits the width on larger screens */
+    padding: 20px;
+}
+
+.form-container input,
+.form-container select {
+    display: block;
+    width: 95%; /* Full width */
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid gray;
+    border-radius: 5px;
+    background-color: aliceblue;
+}
+
+.form-container select {
+    width: 98.9%; /* Matches the input width */
+}
+
+.form-container label {
+    font-weight: bold;
+}
+button {
+    width: auto; /* Button size adjusts based on content */
+    padding: 8px 12px; /* Smaller padding */
+    background: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 0.9rem; /* Smaller font size */
+    margin-top: 25px;
+}
+
+button:hover {
+    background: darkred;
+}
+
+/* Result container styling */
+#result-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto; /* Centers the result section */
+    padding: 15px;
+    background: white;
+    border-radius: 5px;
+    text-align: start;
+}
+#result-container button{
+    transform: translateX(15rem);
+}
+#result-container span{
+   margin-left: 8rem;
+    color: #ff3333;
+
+}
+.health-score-container {
+    margin: 20px 0;
+    text-align: center;
+}
+
+ul {
+    list-style-position: outside; /* Ensures bullets align correctly */
+    margin-left: 20px; /* Adjust indentation */
+    padding-left: 0;
+}
+
+ul li {
+    text-align: left;
+    margin-bottom: 5px; /* Adds spacing between list items */
+    display: list-item; /* Ensures proper bullet display */
+}
+
+
+/* Keyframe animation for fade-in */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Media Queries for Responsiveness */
+
+/* For tablets and small desktops */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    h1 {
+        font-size: 1.5rem;
+    }
+    .form-container {
+        width: 90%;
+        padding: 15px;
+    }
+    form label {
+        font-size: 0.95rem;
+    }
+    form input,
+    form select {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+    button {
+        padding: 6px 10px; /* Further reduce padding */
+        font-size: 0.85rem; 
+    }
+    #result-container {
+        padding: 10px;
+        text-align: center;
+    }
+}
+
+/* For mobile devices */
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+    h1 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+    .form-container {
+        width: 95%;
+        padding: 10px;
+    }
+    form label {
+        font-size: 0.85rem;
+    }
+    form input,
+    form select {
+        font-size: 0.8rem;
+        padding: 7px;
+    }
+    button {
+        padding: 5px 8px; /* Minimal padding */
+        font-size: 0.8rem; 
+    }
+    #result-container h2 {
+        font-size: 1rem;
+    }
+    p {
+        font-size: 0.85rem;
+    }
+    ul li {
+        font-size: 0.8rem;
+    }
+}

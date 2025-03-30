@@ -1,0 +1,398 @@
+body{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: rgb(4, 10, 21);*/
+    background-color: black;
+    overflow: auto;
+} 
+body::-webkit-scrollbar {
+    display: none; /* Hides scrollbar in Chrome, Safari, and Edge */
+  }
+.background-container {
+    position: relative; /* Make it relative for the navbar positioning */
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+}
+
+ 
+ /* .scroll-down {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 1000;
+    animation: bounce 1.5s infinite;
+    transition: opacity 0.3s ease-in-out;
+} */
+
+
+
+.scroll-down {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 9999;
+    animation: bounce 1.5s infinite;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Bounce Animation */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    50% {
+        transform: translateX(-50%) translateY(10px);
+    }
+}
+
+/* Hide when scrolling */
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+nav{
+    position: fixed; /* Fix the navbar at the top */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2; /* Ensure navbar is above the background image */
+    background-color: white;
+    display: flex;
+    align-items: center;
+   
+}
+
+.container a span{
+    font-weight: bolder;
+}
+
+.bgc{
+    width: 80vw;
+    height: 90vh;
+    background-color: black;
+    margin-top: 20px;
+    margin-left: 70px;
+    display: flex;
+    overflow: hidden;
+    
+
+   
+}
+.img{
+    width: 55%;
+    height: 90%;
+    /* background-color: rgb(4, 10, 21); */
+    background-color: black;
+    color: white;
+    
+}
+
+
+.overlay-text {
+    display: inline-block;
+    position: absolute;
+    top: 50%; /* Center the text vertically */
+    left: 30%; /* Center the text horizontally */
+    transform: translate(-50%, -50%); /* Adjust for perfect centering */
+    color: white; /* Text color */
+    font-size: 3rem; /* Adjust the font size */
+    font-weight: bold; /* Make the text bold */
+    text-shadow: 0 0 5px black;
+    
+   
+  }
+
+  
+  .overlay-text p {
+    border-right: 5px solid;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    -webkit-text-stroke: 1px red;  /* Creates a red stroke (border) around the text */
+    color: white;  /* Text color */
+    
+    /* Glowing effect around text */
+   
+    
+     animation:  showText 2s forwards,typing 2s steps(14)  forwards,  cursor 0.4s step-end 5s forwards;
+}
+/* cursor .4s step-end 2s infinite alternate-reverse;  */
+span{
+    color: red;
+   
+}
+
+
+@keyframes showText {
+    to {
+        visibility: visible;
+    }
+}
+
+@keyframes cursor {
+    50% {
+        border-color: transparent;
+        
+    }
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+       
+    }
+    to {
+        width: 100%;
+       
+        
+    }
+}
+
+
+
+
+
+.video{
+    width: 45%;
+    height: 90%;
+    padding: 0;
+    /* margin-bottom: 5rem; */
+    /* background-color: rgb(8, 12, 20); */
+    /* background-image: radial-gradient(circle, rgb(177, 2, 2),rgb(8, 12, 20)); */
+    /* background-color: red; /* For browsers that do not support gradients */
+   /* background: radial-gradient(closest-side at 50% 50%, rgb(32, 13, 13),rgb(4, 10, 21) );    */
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   /* box-shadow: inset 15px 3px 10px 40px rgb(4, 10, 21); */
+   background-color: black;
+
+
+}
+video{
+    height: 70%;
+    width: 50%;
+    /* border-radius: 12rem; */
+    object-fit: cover;
+   transform: translateY(-20%);
+   
+    
+}
+
+
+/* video::before{
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: rgba(0, 0, 0, 0.5); /* semi-transparent black overlay */
+    /*filter: blur(10px); /* Blur effect */
+   /* z-index: -1;
+} */
+   
+
+.overlay-text #para{
+    font-size: 20px;
+    opacity: 0;  /* Initially hidden */
+    width: 0;    /* Initially width is 0, so no text will be visible */
+    overflow: hidden;  /* Prevents text overflow */
+    white-space: nowrap; 
+    border-right: 2px solid black;  
+    background-color: transparent;
+    color: white;
+   
+    animation:   fadeIn 5s forwards,typing1 2s steps(14) 2s forwards, cursor 0.4s step-end 5s forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;  /* Fade in after 5 seconds */
+    }
+}
+
+
+@keyframes cursor {
+    50% {
+        border-color: transparent;
+    }
+}
+
+@keyframes typing1 {
+    from {
+        width: 0;
+       
+    }
+    to {
+        width: 100%;
+       
+        
+    }
+}
+
+@keyframes glowPulse {
+    0% {
+        text-shadow: 
+            0 0 3px red, 
+            0 0 5px red, 
+            0 0 8px red;
+    }
+    100% {
+        text-shadow: 
+            0 0 5px red, 
+            0 0 7px red, 
+            0 0 10px red;
+    }
+}
+
+.about{
+    width: 90%;
+   height: 70rem;
+    padding: 20px;
+    font-size: x-small;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+   background-color: rgb(0, 0, 0);
+   margin-left: 4rem;
+  
+   
+    
+}
+
+.box1,.box2{
+    width: 100%;
+    height: 90%;
+    display: flex;
+    background-color: rgb(0, 0, 0);
+    margin-bottom: 10px;
+   /* padding-top: 20px; */
+  
+}
+.box2{
+    transform: translateY(-40px);
+    padding-top: 10rem;
+    padding-left: 50px;
+}
+.text1 ,.text2{
+    width: 60%;
+    height: 70%;
+    font-size: medium;
+    padding-top: 10px;
+    padding-left: 30px;
+
+
+}
+.text1  h2,.text2 h2{
+   color: rgb(188, 0, 0);
+}
+.text1 p,.text2 p{
+    font-size: medium;
+    font-weight: normal;
+    color: white;
+    line-height: 2; /* Increases space between lines */
+   letter-spacing: 1px;
+  
+}
+.hImg,.hImg2{
+    width: 40%;
+    height: 100%;
+    background-image: url("heart2.jpg");
+    background-size: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+      
+      
+}
+.hImg{
+    transform: translateY(-40px);
+}
+
+.hImg2{
+    background-image: url("heart4.avif");
+    background-size: 80%;
+    background-position: center;
+    background-repeat: no-repeat; 
+}
+
+.predict{
+    z-index: 2;
+    position: relative;
+    background-image: url('line2.avif');
+    background-size: 60%;
+    background-repeat: repeat-x;
+    background-position: 50% 30%;
+    color: white;
+    width: 90%;
+    height: 100%;
+    transform: translateY(-10%);  
+    padding-top:10% ;
+    margin-left: 6%; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+/* .predict::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Adjust transparency */
+   
+
+
+  .text {
+    font-size: 2.3rem; /* Increases text size */
+    font-weight: bold; /* Makes text bold */
+    color: white; /* Text color */
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.7); /* Adds shadow */
+    padding: 10px 20px;
+    background: rgba(0, 0, 0, 0.5); /* Adds a semi-transparent background */
+    border-radius: 10px; /* Rounds the corners */
+    z-index: 1;
+    
+  }
+.predict a{
+    border: red;
+    z-index: 1;
+}
+
+
+.tagline {
+   font-size: small;
+    font-weight: bold;
+    color: #d9534f;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+  transform: translateY(-70px);
+   padding-bottom: 50px;
+}
+
+

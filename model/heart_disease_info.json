@@ -1,0 +1,62 @@
+{
+    "Coronary Artery Disease (CAD)": {
+        "Cause": [
+            "Atherosclerosis (plaque buildup in arteries)",
+            "High blood pressure",
+            "Smoking"
+        ],
+        "Symptoms": {
+            "Chest pain (angina)": 4,  
+            "Shortness of breath": 3,
+            "Fatigue": 2
+        },
+        "Treatment": [
+            "Statins (to lower cholesterol)",
+            "Beta-blockers (to reduce heart workload)",
+            "Aspirin (to prevent blood clots)",
+            "Lifestyle changes (e.g., diet, exercise)",
+            "Angioplasty (to widen narrowed arteries)",
+            "Surgery (e.g., bypass surgery)"
+        ]
+    },
+    "Heart Failure": {
+        "Cause": [
+            "High blood pressure",
+            "Coronary artery disease",
+            "Diabetes",
+            "Obesity"
+        ],
+        "Symptoms": {
+            "Shortness of breath": 4,
+            "Swelling in legs": 5,  
+            "Fatigue": 3,
+            "Irregular heartbeat": 3
+        },
+        "Treatment": [
+            "ACE inhibitors (to relax blood vessels)",
+            "Diuretics (to reduce fluid buildup)",
+            "Beta-blockers (to help the heart pump more effectively)",
+            "Heart transplant (in severe cases)",
+            "Lifestyle changes"
+        ]
+    },
+    "Valvular Heart Disease": {
+        "Cause": [
+            "Birth defects",
+            "Infections (e.g., rheumatic fever)",
+            "Aging"
+        ],
+        "Symptoms": {
+            "Shortness of breath": 4,
+            "Fatigue": 3,
+            "Swollen ankles": 5,  
+            "Chest pain": 3
+        },
+        "Treatment": [
+            "Valve repair/replacement",
+            "Diuretics (to remove excess fluid)",
+            "Blood thinners",
+            "Lifestyle changes"
+        ]
+    }
+}

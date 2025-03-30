@@ -1,0 +1,107 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 40px;
+    padding: 0;
+    background-color: #ffffff;
+    color: #333;
+    text-align: left;
+    line-height: 1.8;
+}
+
+/* Hospital Name */
+.hospital-name {
+    color: red !important;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+/* Main Report Heading */
+.report-header {
+    color: red !important;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    border-bottom: 3px solid red;
+    padding-bottom: 10px;
+}
+
+/* Report Container */
+.container {
+    width: 90%;
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    line-height: 1.8;
+    text-align: left;
+}
+
+/* Section Headings (Patient Details, Health Details, Results) */
+.section-title {
+    color: black !important;  /* Force black color for better visibility */
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 25px;
+    border-bottom: 2px solid #ff4d4d;
+    padding-bottom: 5px;
+}
+
+/* Report Content */
+.report-content {
+    font-size: 1.1rem;
+    margin: 10px 0;
+    font-weight: 500;
+}
+
+/* Key Details */
+.report-content strong {
+    color: black !important;
+    font-weight: bold;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    font-size: 0.9rem;
+    color: grey;
+    padding: 10px;
+    margin-top: 40px;
+    border-top: 1px solid #ccc;
+}
+
+/* Button */
+button {
+    display: inline-block;
+    padding: 12px 20px;
+    background: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background: darkred;
+    transform: translateY(-3px);
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+/* Signature */
+.signature {
+    margin-top: 50px;
+    text-align: right;
+    font-weight: bold;
+}

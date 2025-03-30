@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Medical Report</title>
+    <link rel="stylesheet" href="styles.css" />
+
+    <style>
+        body {
+            font-size: 14px; 
+            
+             /* Increase base font size */
+        }
+        .container{
+            margin: 20px;
+        }
+        .hospital-name {
+            font-size: 22px; 
+            color: black;
+            font-weight: bold;
+            text-align: center;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+            color: red;
+            
+        }
+        span{
+            color: red;
+        }
+        .report-header{
+            font-weight: bold;
+            text-align: center;
+        }
+        p {
+            font-size: 14px;
+        }
+        .img{
+            width: 30%;
+            height: 40%;
+
+        }
+        hr {
+        border: 1px solid gray;  /* Sets a black border */
+        width: 80%;               /* Adjust width */
+        margin: 20px auto;        /* Center align */
+    }
+
+        
+    </style>
+    
+  </head>
+  <body>
+    <div class="container">
+      <!-- Hospital Name -->
+      <div class="hospital-name"><span>Cardio</span>Vascular</div>
+
+      <!-- Report Heading -->
+      <div class="report-header">Medical Report</div>
+
+      <!-- Patient Details -->
+      <p class="report-content">
+        <strong>Date:</strong> {{ result.timestamp }}
+    </p>
+    
+      <div class="section-title">Patient Details</div><hr>
+      <p class="report-content"><strong>Name:</strong> John Doe</p>
+      <p class="report-content"><strong>Age:</strong> {{ result.age }}</p>
+      <p class="report-content"><strong>Gender:</strong> {{ result.gender }}</p>
+     
+
+      <!-- Health Details -->
+      <div class="section-title">Health Details</div><hr style="height: .2px; background-color: gray; color: gray;">
+      <p class="report-content">
+        <strong>Blood Pressure:</strong> {{ result.blood_pressure }} mmHg
+      </p>
+      <p class="report-content">
+        <strong>Cholesterol:</strong> {{ result.cholesterol }} mg/dL
+      </p>
+      <p class="report-content">
+        <strong>Diabetes:</strong> {{ result.diabetes }}
+      </p>
+      <p class="report-content">
+        <strong>Heart Rate:</strong> {{ result.heart_rate }} bpm
+      </p>
+
+      <!-- Results -->
+      <div class="section-title">Test Results</div><hr>
+      <p class="report-content">
+        <strong>Detected Disease:</strong> {{ result.disease }}
+      </p>
+      <p class="report-content"><strong>Status:</strong> {{ result.status }}</p>
+      <p class="report-content">
+        <strong>Symptoms:</strong> {{ result.symptoms_entered }}
+      </p>
+
+      <!-- Health Metrics Graph Section -->
+      {% if graph_base64 %}
+      
+      <div class="img">
+        <h3 class="section-heading">Health Metrics Graph</h3>
+        <img src="data:image/png;base64,{{ graph_base64 }}" alt="Health Graph"
+        style="display: block;margin-left: 12rem;margin-right: 12rem; width: 350px;height: 240px; border: 1px solid #ddd; border-radius: 5px;"></div>
+  {% else %}
+      <p style="text-align: center; font-weight: bold;">No graph available.</p>
+  {% endif %}
+  
+
+
+      <!-- Doctor’s Recommendations -->
+      <div class="section-title">Doctor’s Recommendations</div><hr>
+      <!-- <p class="report-content"><strong>Possible Causes:</strong></p>
+      <ul>
+        {% for cause in result.causes %}
+        <li class="report-content">{{ cause }}</li>
+        {% endfor %}
+      </ul>
+
+      <p class="report-content"><strong>Treatment Recommendations:</strong></p>
+      <ul>
+        {% for treatment in result.treatment %}
+        <li class="report-content">{{ treatment }}</li>
+        {% endfor %}
+      </ul> -->
+
+      <p class="report-content"><strong>Possible Causes:</strong></p>
+{% if result.causes %}
+<ul>
+    {% for cause in result.causes %}
+    <li class="report-content">{{ cause }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p class="report-content">---</p>
+{% endif %}
+
+<p class="report-content"><strong>Treatment Recommendations:</strong></p>
+{% if result.treatment %}
+<ul>
+    {% for treatment in result.treatment %}
+    <li class="report-content">{{ treatment }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p class="report-content">---</p>
+{% endif %}
+
+
+      <!-- Doctor's Signature -->
+      <div class="signature">
+        <p>________________________</p>
+        <p>Dr. ABC<br />Senior Cardiologist, ABC Hospital</p>
+      </div>
+
+      <!-- Footer -->
+      <footer>
+        <p>
+          This is a computer-generated report and does not require a signature.
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>
