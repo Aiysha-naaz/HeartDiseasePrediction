@@ -6,9 +6,9 @@
             "Smoking"
         ],
         "Symptoms": {
-            "Chest pain (angina)": 4,  
-            "Shortness of breath": 3,
-            "Fatigue": 2
+            "Chest pain (angina)": 5,
+            "Shortness of breath": 4,
+            "Fatigue": 3
         },
         "Treatment": [
             "Statins (to lower cholesterol)",
@@ -27,9 +27,9 @@
             "Obesity"
         ],
         "Symptoms": {
-            "Shortness of breath": 4,
-            "Swelling in legs": 5,  
-            "Fatigue": 3,
+            "Shortness of breath": 5,
+            "Swelling in legs": 4,
+            "Fatigue": 4,
             "Irregular heartbeat": 3
         },
         "Treatment": [
@@ -40,6 +40,26 @@
             "Lifestyle changes"
         ]
     },
+    "Arrhythmia": {
+        "Cause": [
+            "Heart disease",
+            "Electrolyte imbalances",
+            "High blood pressure",
+            "Stress"
+        ],
+        "Symptoms": {
+            "Palpitations (feeling of heart racing or skipping beats)": 5,
+            "Dizziness": 4,
+            "Shortness of breath": 3,
+            "Fainting": 4
+        },
+        "Treatment": [
+            "Antiarrhythmic drugs (to control heart rhythms)",
+            "Beta-blockers (to stabilize heart rhythm)",
+            "Pacemaker (to regulate heart rate)",
+            "Catheter ablation (to remove problematic heart tissue)"
+        ]
+    },
     "Valvular Heart Disease": {
         "Cause": [
             "Birth defects",
@@ -48,8 +68,8 @@
         ],
         "Symptoms": {
             "Shortness of breath": 4,
-            "Fatigue": 3,
-            "Swollen ankles": 5,  
+            "Fatigue": 4,
+            "Swollen ankles": 3,
             "Chest pain": 3
         },
         "Treatment": [
@@ -57,6 +77,97 @@
             "Diuretics (to remove excess fluid)",
             "Blood thinners",
             "Lifestyle changes"
+        ]
+    },
+    "Congenital Heart Disease": {
+        "Cause": [
+            "Genetic factors",
+            "Infections during pregnancy (e.g., rubella)"
+        ],
+        "Symptoms": {
+            "Cyanosis (blue skin)": 5,
+            "Poor feeding": 4,
+            "Fatigue": 3,
+            "Breathlessness": 4
+        },
+        "Treatment": [
+            "Surgery to correct the defect",
+            "Medications to manage symptoms",
+            "Catheter procedures"
+        ]
+    },
+    "Cardiomyopathy": {
+        "Cause": [
+            "Genetic factors",
+            "High blood pressure",
+            "Alcohol use",
+            "Infections"
+        ],
+        "Symptoms": {
+            "Shortness of breath": 5,
+            "Fatigue": 4,
+            "Swollen legs": 4,
+            "Arrhythmias (irregular heartbeats)": 3
+        },
+        "Treatment": [
+            "ACE inhibitors",
+            "Beta-blockers",
+            "Diuretics",
+            "Heart transplant (in severe cases)"
+        ]
+    },
+    "Pericarditis": {
+        "Cause": [
+            "Viral infections",
+            "Autoimmune diseases",
+            "Heart surgery or injury"
+        ],
+        "Symptoms": {
+            "Chest pain (sharp, worsened by deep breaths)": 5,
+            "Difficulty breathing": 4,
+            "Fever": 3,
+            "Fatigue": 2
+        },
+        "Treatment": [
+            "Anti-inflammatory medications",
+            "Pain relievers",
+            "Corticosteroids",
+            "Surgery (if severe)"
+        ]
+    },
+    "Hypertensive Heart Disease": {
+        "Cause": [
+            "Chronic high blood pressure",
+            "Family history of hypertension"
+        ],
+        "Symptoms": {
+            "Headaches": 4,
+            "Shortness of breath": 4,
+            "Swelling": 3,
+            "Fatigue": 3
+        },
+        "Treatment": [
+            "Blood pressure medications (e.g., ACE inhibitors, diuretics, beta-blockers)"
+        ]
+    },
+    "Myocardial Infarction (Heart Attack)": {
+        "Cause": [
+            "Atherosclerosis (plaque buildup in arteries)",
+            "Blood clot blocking coronary artery"
+        ],
+        "Symptoms": {
+            "Chest pain (discomfort radiating to the arm, jaw, or back)": 5,
+            "Nausea": 4,
+            "Shortness of breath": 4,
+            "Cold sweats": 3,
+            "Fatigue": 3
+        },
+        "Treatment": [
+            "Thrombolytics (to dissolve the clot)",
+            "Aspirin (to prevent further clotting)",
+            "Beta-blockers (to reduce heart workload)",
+            "Angioplasty (to restore blood flow)",
+            "Bypass surgery (to bypass blocked arteries)"
         ]
     }
 }

@@ -60,24 +60,77 @@ def predict_heart_disease(age, gender, chol, bp, hr, diabetes, symptoms):
      return identify_heart_disease_type(symptoms)
 
 
-# Function to determine heart disease type based on symptoms
+# # Function to determine heart disease type based on symptoms
+# def identify_heart_disease_type(symptoms):
+#     symptoms = [sym.strip().lower() for sym in symptoms]  # Clean symptoms
+#     symptom_scores = {}
+
+#     for disease, details in heart_disease_info_weighted.items():
+#         total_score = sum(details["Symptoms"].get(sym, 0) for sym in symptoms)
+#         symptom_scores[disease] = total_score
+
+#     best_match = max(symptom_scores, key=symptom_scores.get)
+#     return {
+#         "status": "Disease Detected",
+#         "disease": best_match,
+#         "causes": list(heart_disease_info_weighted[best_match]["Cause"]),
+#         "treatment": list(heart_disease_info_weighted[best_match]["Treatment"]),
+#         "symptoms_entered": ", ".join(symptoms),
+#         "message": f"Detected: {best_match}. Consult a doctor for further assistance."
+#     }
+
 def identify_heart_disease_type(symptoms):
-    symptoms = [sym.strip().lower() for sym in symptoms]  # Clean symptoms
+    symptoms = [sym.strip().lower() for sym in symptoms]
     symptom_scores = {}
 
     for disease, details in heart_disease_info_weighted.items():
-        total_score = sum(details["Symptoms"].get(sym, 0) for sym in symptoms)
+        total_score = 0
+        matching_symptoms = {s.lower(): weight for s, weight in details["Symptoms"].items()}
+
+        for sym in symptoms:
+            total_score += matching_symptoms.get(sym, 0)
+
         symptom_scores[disease] = total_score
 
-    best_match = max(symptom_scores, key=symptom_scores.get)
-    return {
+    max_score = max(symptom_scores.values())
+    
+    if max_score == 0:
+        return {
+            "status": "Uncertain",
+            "message": "No matching disease detected.",
+            "symptoms_entered": ", ".join(symptoms)
+        }
+
+    # Get all diseases with the max score
+    best_matches = [d for d, score in symptom_scores.items() if score == max_score]
+
+    # Return single or multiple diseases accordingly
+    if len(best_matches) == 1:
+       best = best_matches[0]
+       return {
         "status": "Disease Detected",
-        "disease": best_match,
-        "causes": list(heart_disease_info_weighted[best_match]["Cause"]),
-        "treatment": list(heart_disease_info_weighted[best_match]["Treatment"]),
+        "disease": best,
+        "causes": heart_disease_info_weighted[best]["Cause"],
+        "treatment": heart_disease_info_weighted[best]["Treatment"],
         "symptoms_entered": ", ".join(symptoms),
-        "message": f"Detected: {best_match}. Consult a doctor for further assistance."
+        "message": f"Detected: {best}. Consult a doctor for further assistance."
     }
+    else:
+       results = []
+    for disease in best_matches:
+        results.append({
+            "disease": disease,
+            "cause": heart_disease_info_weighted[disease]["Cause"],
+            "treatment": heart_disease_info_weighted[disease]["Treatment"]
+        })
+
+    return {
+        "status": "Multiple Possibilities",
+        "symptoms_entered": ", ".join(symptoms),
+        "matched_diseases": results,
+        "message": f"Detected multiple possible diseases. Please consult a doctor for accurate diagnosis."
+    }
+
 
 
 # Home route
@@ -335,6 +388,8 @@ def predict():
 
             # Call prediction logic (replace with your actual implementation)
             result = predict_heart_disease(age, gender, chol, bp, hr, diabetes, symptoms)
+           
+
 
             # Generate the graph dynamically and get the file name
             graph_file_name = generate_graph(age, chol, bp, hr)
@@ -360,6 +415,7 @@ def predict():
                 # "treatment": result.get("treatment", "No data available"),
                 "causes": result.get("causes", []),  # Empty list if no causes
                 "treatment": result.get("treatment", []),  # Empty list if no treatment
+                "matched_diseases": result.get("matched_diseases", []),
                 "age": result.get("age"),
                 "gender": result.get("gender"),
                 "cholesterol": result.get("cholesterol"),
@@ -381,6 +437,9 @@ def predict():
     return render_template("prediction.html", result=None)
 
 
+
+
+
 # # Define the report route
 # @app.route("/report")
 # def report():
@@ -390,14 +449,29 @@ def predict():
 #     return render_template("report.html", result=result)
 
 # Define the report route
+# @app.route("/report")
+# def report():
+#     # Get result from session
+#     result = session.get("result_summary", None)
+#     if not result:
+#         return render_template("error.html", error_message="No data available for the report. Please make a prediction first.")
+    
+#     name = request.args.get("name", "Patient")
+#     print("Name received in query param:", name)
+#     return render_template("report.html", result=result, name=name) 88888888888
+
+    # return render_template("report.html", result=result)
+
 @app.route("/report")
 def report():
-    # Get result from session
     result = session.get("result_summary", None)
     if not result:
         return render_template("error.html", error_message="No data available for the report. Please make a prediction first.")
 
-    return render_template("report.html", result=result)
+    name = request.args.get("name", "Patient")
+    print(name)
+    return render_template("report.html", result=result, name=name)
+
 
 
 # @app.route("/report")
@@ -538,6 +612,10 @@ import os
 import os
 import base64
 
+
+
+from flask import send_file  # if not already imported
+
 @app.route("/download-pdf")
 def download_pdf():
     result = session.get("result_summary", None)
@@ -545,37 +623,85 @@ def download_pdf():
     if not result:
         return jsonify({"error": "No report available to download."}), 400
 
+    name = request.args.get("name", "Patient")
     try:
         # Get graph file path
-        graph_filename = result.get("graph_file_name", None)
+        graph_filename = result.get("graph_file_name")
         graph_path = os.path.join("static", "graphs", graph_filename) if graph_filename else None
 
-        # Convert image to Base64 (if graph exists)
+        # Convert graph image to Base64
         graph_base64 = None
         if graph_path and os.path.exists(graph_path):
             with open(graph_path, "rb") as img_file:
                 graph_base64 = base64.b64encode(img_file.read()).decode("utf-8")
 
-        
-        result["timestamp"] = datetime.now().strftime("%Y-%m-%d")        
+        # Add timestamp
+        result["timestamp"] = datetime.now().strftime("%Y-%m-%d")
 
-        # Render PDF with base64-encoded image
-        html = render_template("report_pdf.html", result=result, graph_base64=graph_base64)
+        # Add fallback for missing or empty causes/treatment
+        result["causes"] = result.get("causes") or ["Not available"]
+        result["treatment"] = result.get("treatment") or ["Not available"]
 
+        # Render HTML template
+        # html = render_template("report_pdf.html", result=result, graph_base64=graph_base64)
+        html = render_template("report_pdf.html", result=result, graph_base64=graph_base64, name=name)
+
+
+        # Generate PDF
         pdf = BytesIO()
         pisa_status = pisa.CreatePDF(html, pdf)
 
         if pisa_status.err:
             return jsonify({"error": "Error generating PDF"}), 500
 
+        # Return downloadable PDF response
         response = make_response(pdf.getvalue())
         response.headers["Content-Type"] = "application/pdf"
         response.headers["Content-Disposition"] = "attachment; filename=Medical_Report.pdf"
-
         return response
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
+# @app.route("/download-pdf")
+# def download_pdf():
+#     result = session.get("result_summary", None)
+
+#     if not result:
+#         return jsonify({"error": "No report available to download."}), 400
+
+#     try:
+#         # Get graph file path
+#         graph_filename = result.get("graph_file_name", None)
+#         graph_path = os.path.join("static", "graphs", graph_filename) if graph_filename else None
+
+#         # Convert image to Base64 (if graph exists)
+#         graph_base64 = None
+#         if graph_path and os.path.exists(graph_path):
+#             with open(graph_path, "rb") as img_file:
+#                 graph_base64 = base64.b64encode(img_file.read()).decode("utf-8")
+
+        
+#         result["timestamp"] = datetime.now().strftime("%Y-%m-%d")        
+
+#         # Render PDF with base64-encoded image
+#         html = render_template("report_pdf.html", result=result, graph_base64=graph_base64)
+
+#         pdf = BytesIO()
+#         pisa_status = pisa.CreatePDF(html, pdf)
+
+#         if pisa_status.err:
+#             return jsonify({"error": "Error generating PDF"}), 500
+
+#         response = make_response(pdf.getvalue())
+#         response.headers["Content-Type"] = "application/pdf"
+#         response.headers["Content-Disposition"] = "attachment; filename=Medical_Report.pdf"
+
+#         return response
+
+#     except Exception as e:
+#         return jsonify({"error": str(e)}), 500
 
 
 

@@ -10,32 +10,13 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
     <script>
-      // Function to trigger confetti with two dense blasts
       function triggerConfetti() {
-        // First blast: Dense and wide
-        confetti({
-          particleCount: 500,
-          spread: 140,
-          startVelocity: 60,
-          gravity: 0.6,
-          origin: { y: 0.6 },
-          scalar: 0.8,
-        });
-
-        // Second blast after a short delay
+        confetti({ particleCount: 500, spread: 140, startVelocity: 60, gravity: 0.6, origin: { y: 0.6 }, scalar: 0.8 });
         setTimeout(() => {
-          confetti({
-            particleCount: 600,
-            spread: 160,
-            startVelocity: 70,
-            gravity: 0.7,
-            origin: { y: 0.5 },
-            scalar: 0.9,
-          });
+          confetti({ particleCount: 600, spread: 160, startVelocity: 70, gravity: 0.7, origin: { y: 0.5 }, scalar: 0.9 });
         }, 300);
       }
 
-      // Scroll to result container after form submission
       function scrollToResult() {
         const resultContainer = document.getElementById("result-container");
         if (resultContainer) {
@@ -43,7 +24,6 @@
         }
       }
 
-      // Ensure scrolling happens on page load if results are present
       document.addEventListener("DOMContentLoaded", function () {
         const resultContainer = document.getElementById("result-container");
         const resultContent = resultContainer?.innerHTML.trim();
@@ -51,208 +31,165 @@
           resultContainer.scrollIntoView({ behavior: "smooth" });
         }
       });
+
+      function askNameForReport() {
+    let name = "";
+    while (!name) {
+      name = prompt("Please enter your name to generate the report:");
+      if (name === null) return;  // User clicked Cancel
+    }
+    window.location.href = `/report?name=${encodeURIComponent(name)}`;
+  }
+
     </script>
   </head>
   <body>
     <div class="container">
       <h1>🩺 Heart Health Check</h1>
-
       <div class="form-container">
-        <form
-          method="POST"
-          action="{{ url_for('predict') }}"
-          onsubmit="scrollToResult()"
-        >
-          <label>
-            Age:
-            <input type="number" name="age" placeholder="e.g., 35" required />
-          </label>
-          <label>
-            Gender:
-            <select name="gender">
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-            </select>
-          </label>
-          <label>
-            Cholesterol Level:
-            <input
-              type="number"
-              name="cholesterol"
-              placeholder="e.g., 150"
-              required
-            />
-          </label>
-          <label>
-            Blood Pressure:
-            <input
-              type="number"
-              name="blood_pressure"
-              placeholder="e.g., 120"
-              required
-            />
-          </label>
-          <label>
-            Heart Rate:
-            <input
-              type="number"
-              name="heart_rate"
-              placeholder="e.g., 75"
-              required
-            />
-          </label>
-          <label>
-            Diabetes:
-            <select name="diabetes">
-              <option value="Yes">Yes</option>
-              <option value="No">No</option>
-            </select>
-          </label>
-          <label>
-            Symptoms (comma separated):
-            <input
-              type="text"
-              name="symptoms"
-              placeholder="e.g., chest pain, fatigue"
-            />
-          </label>
+        <form method="POST" action="{{ url_for('predict') }}" onsubmit="scrollToResult()">
+          <label> Age: <input type="number" name="age" placeholder="e.g., 35" required /> </label>
+          <label> Gender: <select name="gender"> <option value="Male">Male</option> <option value="Female">Female</option> </select> </label>
+          <label> Cholesterol Level: <input type="number" name="cholesterol" placeholder="e.g., 150" required /> </label>
+          <label> Blood Pressure: <input type="number" name="blood_pressure" placeholder="e.g., 120" required /> </label>
+          <label> Heart Rate: <input type="number" name="heart_rate" placeholder="e.g., 75" required /> </label>
+          <label> Diabetes: <select name="diabetes"> <option value="Yes">Yes</option> <option value="No">No</option> </select> </label>
+          <label> Symptoms (comma separated): <input type="text" name="symptoms" placeholder="e.g., chest pain, fatigue" /> </label>
           <button type="submit">Predict</button>
         </form>
       </div>
 
-<!-- 
-      <div id="result-container">
+      <!-- <div id="result-container">
         <h2 style="text-align: center">Prediction Result</h2>
-
         {% if result %}
-        <p style="margin-left: 14.3rem">
-          <strong>Status:</strong> {{ result["status"] }}
-        </p>
-
-        {% if result["status"] == "Good Health" %}
-        <p
-          style="
-            color: green;
-            font-weight: bold;
-            font-size: 2rem;
-            text-align: center;
-          "
-        >
-          🎉 You are in Good Heart Health! 🎉
-        </p>
-        <script>
-          // Launch confetti on page load for "Good Health"
-          triggerConfetti();
-        </script>
+          <p><strong>Status:</strong> {{ result['status'] }}</p>
+          {% if result["status"] == "Good Health" %}
+            <p>🎉 <strong>You are in Good Heart Health!</strong> 🎉</p>
+            <p><strong>A snapshot of your well-being in one graph.</strong></p>
+            <div style="text-align: center; margin-top: 20px; padding-top: 20px;">
+              <img src="{{ url_for('static', filename='graphs/' + result['graph_file_name']) }}" 
+                   alt="Heart Disease Risk Factors Graph" 
+                   style="width: 400px; height: 350px; border: 1px solid #ddd; border-radius: 5px;" />
+            </div>
+            <a href="{{ url_for('report') }}">
+              <button class="btn btn-outline-danger mt-4 me-5" type="button">Generate Report</button>
+            </a>
+          <script> triggerConfetti(); </script>
+          {% else %}
+            <p><strong>Detected Disease:</strong> {{ result['disease'] }}</p>
+            <p><strong>Symptoms Entered:</strong> {{ result['symptoms_entered'] }}</p>
+            <p><strong>Possible Causes:</strong></p>
+            <ul>
+              {% for cause in result["causes"] %}
+              <li>{{ cause }}</li>
+              {% endfor %}
+            </ul>
+            <p><strong>Suggested Treatment:</strong></p>
+            <ul>
+              {% for treatment in result["treatment"] %}
+              <li>{{ treatment }}</li>
+              {% endfor %}
+            </ul>
+            <h3><strong>Health Parameters Graph</strong></h3>
+            <p><strong>A snapshot of your well-being in one graph.</strong></p>
+            <div style="text-align: center; margin-top: 20px; padding-top: 20px;">
+              <img src="{{ url_for('static', filename='graphs/' + result['graph_file_name']) }}" 
+                   alt="Heart Disease Risk Factors Graph" 
+                   style="width: 400px; height: 350px; border: 1px solid #ddd; border-radius: 5px;" />
+            </div>
+            <a href="{{ url_for('report') }}">
+              <button class="btn btn-outline-danger mt-4 me-5" type="button">Generate Report</button>
+            </a>
+          {% endif %}
         {% else %}
-        <p><strong>Detected Disease:</strong> {{ result["disease"] }}</p>
-        <p>
-          <strong>Symptoms Entered:</strong> {{ result["symptoms_entered"] }}
-        </p>
-        <p><strong>Possible Causes:</strong></p>
-        <ul>
-          {% for cause in result["causes"] %}
-          <li>{{ cause }}</li>
-          {% endfor %}
-        </ul>
-        <p><strong>Suggested Treatment:</strong></p>
-        <ul>
-          {% for treatment in result["treatment"] %}
-          <li>{{ treatment }}</li>
-          {% endfor %}
-        </ul>
-
-        <h3>Health Parameters Graph</h3>
-        <div>{{ result.graph|safe }}</div>
-
-        <a href="{{ url_for('report') }}">
-          <button class="btn btn-outline-danger mt-4 me-5" type="button">
-            Generate Report
-          </button>
-        </a>
+          <p style="text-align: center; margin-top: 2rem;"><strong>Submit your details to check your heart health.</strong></p>
         {% endif %}
-        {% else %}
-        <p style="text-align: center; margin-top: 2rem;">
-          <strong>
-            Submit your details to check your heart health.
-          </strong>
-        </p>
-        {% endif %}
-      </div> -->
-
-      <div id="result-container">
+      </div>
+       -->
+       <div id="result-container">
         <h2 style="text-align: center">Prediction Result</h2>
-      
         {% if result %}
-        <p style="margin-left: 14.3rem">
-          <strong>Status:</strong> {{ result["status"] }}
-        </p>
+          <p><strong>Status:</strong> {{ result['status'] }}</p>
       
-        {% if result["status"] == "Good Health" %}
-        <p style="color: green; font-weight: bold; font-size: 2rem; text-align: center;">
-          🎉 You are in Good Heart Health! 🎉
-        </p>
-
-        <p><strong>A snapshot of your well-being in one graph.</strong></p>
-        <div style="text-align: center; margin-top: 20px; padding-top: 20px;">
-          <img src="{{ url_for('static', filename='graphs/' + result['graph_file_name']) }}" 
-               alt="Heart Disease Risk Factors Graph" 
-               style="width: 400px; height: 350px; border: 1px solid #ddd; border-radius: 5px;" />
-      </div>
+          {% if result["status"] == "Good Health" %}
+            <p>🎉 <strong>You are in Good Heart Health!</strong> 🎉</p>
+            <p><strong>A snapshot of your well-being in one graph.</strong></p>
+            <div style="text-align: center; margin-top: 20px; padding-top: 20px;">
+              <img src="{{ url_for('static', filename='graphs/' + result['graph_file_name']) }}" 
+                   alt="Heart Disease Risk Factors Graph" 
+                   style="width: 400px; height: 350px; border: 1px solid #ddd; border-radius: 5px;" />
+            </div>
+            <a href="{{ url_for('report') }}">
+              <button class="btn btn-outline-danger mt-4 me-5" type="button">Generate Report</button>
+            </a>
+            <script> triggerConfetti(); </script>
       
-      <a href="{{ url_for('report') }}">
-        <button class="btn btn-outline-danger mt-4 me-5" type="button">
-          Generate Report
-        </button>
-      </a>
-
-
-        <script>
-          triggerConfetti(); <!-- Trigger confetti for good health -->
-        </script>
+          {% else %}
+            <p><strong>Symptoms Entered:</strong> {{ result['symptoms_entered'] }}</p>
+      
+            {% if result['status'] == "Multiple Possibilities" %}
+              <p><strong>Detected Diseases:</strong></p>
+              <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+                {% for dis in result['matched_diseases'] %}
+                  <div style="width: 250px; border: 1px solid #ccc; border-radius: 10px; padding: 15px; background-color: #f8f8f8;">
+                    <h4 style="text-align: center; color: #d9534f;"><strong>{{ dis['disease'] }}</strong></h4>
+      
+                    <p><strong>Possible Causes:</strong></p>
+                    <ul>
+                      {% for cause in dis['cause'] %}
+                        <li>{{ cause }}</li>
+                      {% endfor %}
+                    </ul>
+      
+                    <p><strong>Suggested Treatment:</strong></p>
+                    <ul>
+                      {% for treatment in dis['treatment'] %}
+                        <li>{{ treatment }}</li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                {% endfor %}
+              </div>
+      
+            {% else %}
+              <p><strong>Detected Disease:</strong> {{ result['disease'] }}</p>
+              <p><strong>Possible Causes:</strong></p>
+              <ul>
+                {% for cause in result["causes"] %}
+                  <li>{{ cause }}</li>
+                {% endfor %}
+              </ul>
+              <p><strong>Suggested Treatment:</strong></p>
+              <ul>
+                {% for treatment in result["treatment"] %}
+                  <li>{{ treatment }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+      
+            <h3><strong>Health Parameters Graph</strong></h3>
+            <p><strong>A snapshot of your well-being in one graph.</strong></p>
+            <div style="text-align: center; margin-top: 20px; padding-top: 20px;">
+              <img src="{{ url_for('static', filename='graphs/' + result['graph_file_name']) }}" 
+                   alt="Heart Disease Risk Factors Graph" 
+                   style="width: 400px; height: 350px; border: 1px solid #ddd; border-radius: 5px;" />
+            </div>
+            <!-- <a href="{{ url_for('report') }}">
+              <button onclick="askNameForReport()" class="btn btn-outline-danger mt-4 me-5" type="button">Generate Report</button>
+            </a> -->
+            <button onclick="askNameForReport()" class="btn btn-outline-danger mt-4 me-5" type="button">
+              Generate Report
+            </button>
+            
+          {% endif %}
         {% else %}
-        <p><strong>Detected Disease:</strong> {{ result["disease"] }}</p>
-        <p><strong>Symptoms Entered:</strong> {{ result["symptoms_entered"] }}</p>
-        <p><strong>Possible Causes:</strong></p>
-        <ul>
-          {% for cause in result["causes"] %}
-          <li>{{ cause }}</li>
-          {% endfor %}
-        </ul>
-        <p><strong>Suggested Treatment:</strong></p>
-        <ul>
-          {% for treatment in result["treatment"] %}
-          <li>{{ treatment }}</li>
-          {% endfor %}
-        </ul>
-      
-        <h3>Health Parameters Graph</h3>
-        <p><strong>A snapshot of your well-being in one graph.</strong></p>
-      
-        <div style="text-align: center; margin-top: 20px; padding-top: 20px;">
-          <img src="{{ url_for('static', filename='graphs/' + result['graph_file_name']) }}" 
-               alt="Heart Disease Risk Factors Graph" 
-               style="width: 400px; height: 350px; border: 1px solid #ddd; border-radius: 5px;" />
-      </div>
-      
-        </div>
-    
-      
-      
-        <a href="{{ url_for('report') }}">
-          <button class="btn btn-outline-danger mt-4 me-5" type="button">
-            Generate Report
-          </button>
-        </a>
-        {% endif %}
-        {% else %}
-        <p style="text-align: center; margin-top: 2rem;">
-          <strong>Submit your details to check your heart health.</strong>
-        </p>
+          <p style="text-align: center; margin-top: 2rem;"><strong>Submit your details to check your heart health.</strong></p>
         {% endif %}
       </div>
       
-
-
+ 
+      
+      
     </div>
   </body>
+</html>

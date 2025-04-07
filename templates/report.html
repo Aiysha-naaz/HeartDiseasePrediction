@@ -1,66 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medical Report</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/report.css') }}">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Medical Report</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/report.css') }}">
+
+  <script>
+    function downloadPDFWithName() {
+      const name = new URLSearchParams(window.location.search).get("name") || "Patient";
+      window.location.href = `/download-pdf?name=${encodeURIComponent(name)}`;
+    }
+  </script>
 </head>
 <body>
-    <div class="container">
+  <div class="container">
+    <h2 class="report-header">🩺 Medical Report</h2>
 
-        <h2 class="report-header">🩺 Medical Report</h2>
-        
-        <h3 id="head">Patient Details</h3>
-        <ul class="patient">
-            <li><strong>Age:</strong> {{ result.age }}</li>
-            <li><strong>Gender:</strong> {{ result.gender }}</li>
-            <li><strong>Cholesterol Level:</strong> {{ result.cholesterol }}</li>
-            <li><strong>Blood Pressure:</strong> {{ result.blood_pressure }}</li>
-            <li><strong>Heart Rate:</strong> {{ result.heart_rate }}</li>
-            <li><strong>Diabetes:</strong> {{ result.diabetes }}</li>
-            <li><strong>Symptoms:</strong> {{ result.symptoms_entered | title }}</li>
-        </ul>
-        
-        <!-- <h3>Prediction Results</h3>
-        <ul>
-            <li><strong>Status:</strong> {{ result.status }}</li>
-            <li><strong>Detected Disease:</strong> {{ result.disease }}</li>
-            <li><strong>Possible Causes:</strong> {{ result.causes | join(", ") }}</li>
-            <li><strong>Suggested Treatment:</strong> {{ result.treatment | join(", ") }}</li>
-            <li><strong>Message:</strong> {{ result.message }}</li>
-        </ul> -->
+    <h3 id="head">Patient Details</h3>
+    <ul class="patient">
+       <li><strong>Name:</strong> {{ name }}</li> 
+      <!-- <p class="report-content"><strong>Name:</strong> {{ name }}</p> -->
 
+      <li><strong>Age:</strong> {{ result.age }}</li>
+      <li><strong>Gender:</strong> {{ result.gender }}</li>
+      <li><strong>Cholesterol Level:</strong> {{ result.cholesterol }}</li>
+      <li><strong>Blood Pressure:</strong> {{ result.blood_pressure }}</li>
+      <li><strong>Heart Rate:</strong> {{ result.heart_rate }}</li>
+      <li><strong>Diabetes:</strong> {{ result.diabetes }}</li>
+      <li><strong>Symptoms:</strong> {{ result.symptoms_entered | title }}</li>
+    </ul>
 
+    <h3>Prediction Results</h3>
+    <ul>
+      <li><strong>Status:</strong> {{ result["status"] }}</li>
+    </ul>
+    
+    {% if result["status"] == "Multiple Possibilities" and result["matched_diseases"] %}
+      <ul>
+        {% for dis in result["matched_diseases"] %}
+          <li style="margin-bottom: 15px;">
+            <strong>Disease:</strong> {{ dis['disease'] }}<br>
+            <strong>Possible Causes:</strong>
+            <ul>
+              {% for cause in dis['cause'] %}
+                <li>{{ cause }}</li>
+              {% endfor %}
+            </ul>
+            <strong>Suggested Treatment:</strong>
+            <ul>
+              {% for treatment in dis['treatment'] %}
+                <li>{{ treatment }}</li>
+              {% endfor %}
+            </ul>
+          </li>
+        {% endfor %}
+      </ul>
+      <p style="margin-top: 20px;"><strong>Message:</strong> {{ result["message"] }}</p>
+    {% else %}
+      <ul>
+        <li><strong>Detected Disease:</strong> {{ result["disease"] if result["disease"] else "---" }}</li>
+        <li><strong>Possible Causes:</strong> {{ "---" if not result["causes"] else ", ".join(result["causes"]) }}</li>
+        <li><strong>Suggested Treatment:</strong> {{ "---" if not result["treatment"] else ", ".join(result["treatment"]) }}</li>
+        <li><strong>Message:</strong> {{ result["message"] }}</li>
+      </ul>
+    {% endif %}
 
-        <h3>Prediction Results</h3>
-        <ul>
-          <li><strong>Status:</strong> {{ result["status"] }}</li>
-          <li><strong>Detected Disease:</strong> {{ result["disease"] if result["disease"] else "---" }}</li>
-          <!-- <li><strong>Detected Disease:</strong> {{ result["disease"] }}</li> -->
-          <!-- <li><strong>Possible Causes:</strong> {{ result["causes"] | join(", ") }}</li>
-          <li><strong>Suggested Treatment:</strong> {{ result["treatment"] | join(", ") }}</li> -->
-          <li><strong>Possible Causes:</strong> {{ "---" if not result["causes"] else ", ".join(result["causes"]) }}</li>
-          <li><strong>Suggested Treatment:</strong> {{ "---" if not result["treatment"] else ", ".join(result["treatment"]) }}</li>          
-
-          <li><strong>Message:</strong> {{ result["message"] }}</li>
-        </ul>
-        
-       
-        
     <h3>Health Parameters Graph</h3>
     <div style="text-align: center; margin-top: 20px;">
-        <img src="{{ url_for('static', filename='graphs/' + result['graph_file_name']) }}" alt="Heart Disease Risk Factors Graph" 
-        style="width: 400px; height: 350px; border: 1px solid #ddd; border-radius: 5px;"/>
-
-
+      <img src="{{ url_for('static', filename='graphs/' + result['graph_file_name']) }}" 
+           alt="Heart Disease Risk Factors Graph" 
+           style="width: 400px; height: 350px; border: 1px solid #ddd; border-radius: 5px;" />
     </div>
 
-        <a href="{{ url_for('download_pdf') }}" class="btn btn-primary"><button>Download Report</button></a>
+    <!-- <a href="{{ url_for('download_pdf') }}" class="btn btn-primary">
+      <button>Download Report</button>
+    </a> -->
+    <button onclick="downloadPDFWithName()" class="btn btn-outline-primary">Download PDF</button>
 
-        <footer>
-            <p>&copy; 2025 Medical Analysis Center. All Rights Reserved.</p>
-        </footer>
-    </div>
+    <footer>
+      <p>&copy; 2025 Medical Analysis Center. All Rights Reserved.</p>
+    </footer>
+  </div>
 </body>
 </html>
