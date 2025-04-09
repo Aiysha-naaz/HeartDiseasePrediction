@@ -1,0 +1,263 @@
+ /* General Reset */
+ * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9fafc;
+    color: #333;
+    line-height: 1.6;
+  }
+/* Loader styles */
+/* Loader Styles */
+#loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pulse-line {
+  width: 200px;
+  height: 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.pulse {
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    #e11d48 30%,
+    #e11d48 50%,
+    transparent 70%
+  );
+  position: absolute;
+  animation: heartbeatPulse 1.5s ease-in-out infinite;
+  clip-path: polygon(
+    0% 50%, 10% 50%, 15% 30%, 20% 50%, 25% 70%, 30% 50%, 35% 50%, 
+    40% 20%, 45% 50%, 50% 80%, 55% 50%, 60% 50%, 100% 50%, 100% 100%, 
+    0% 100%
+  );
+}
+
+@keyframes heartbeatPulse {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+  h2, h3 {
+    font-weight: 700;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  /* ------------------ Intro Section ------------------ */
+  .about-section {
+    padding: 80px 20px;
+    background: linear-gradient(to right, #fdfbfb, #ebedee);
+  }
+
+  .about-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .intro-text {
+    flex: 1;
+    min-width: 300px;
+  }
+
+  .intro-text h2 {
+    font-size: 40px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+  }
+
+  .intro-text p {
+    font-size: 18px;
+    color: #444;
+    margin-bottom: 18px;
+  }
+
+  .intro-highlight {
+    color: #e91e63;
+    font-weight: 600;
+  }
+
+  .intro-image {
+    flex: 1;
+    min-width: 300px;
+    text-align: center;
+    background-image: url("hearttt.jpg");
+    width: 200px;
+    height: 400px;
+    background-size: cover;
+  }
+
+  /* .intro-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  } */
+
+  /* ------------------ Working Section ------------------ */
+  .working-section {
+    margin-top: 60px;
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  .working-section h3 {
+    font-size: 32px;
+    color: #111827;
+    margin-bottom: 30px;
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 10px;
+  }
+  
+  .step-row {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 25px;
+  }
+
+  .step-card {
+    background-color: #ffffff;
+    border-left: 5px solid #3b82f6;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    text-align: left;
+    transition: transform 0.3s ease;
+  }
+
+  .step-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .step-number {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #3b82f6;
+    color: white;
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .step-text {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 16px;
+    color: #333;
+  }
+
+  .contact-section {
+background-color: #f9fafb;
+padding: 60px 20px;
+text-align: center;
+}
+
+.contact-container {
+max-width: 600px;
+margin: 0 auto;
+}
+
+.contact-container h3 {
+font-size: 28px;
+margin-bottom: 20px;
+color: #1f2937;
+}
+
+form input,
+form textarea {
+width: 100%;
+padding: 12px 15px;
+margin: 10px 0;
+border: 1px solid #d1d5db;
+border-radius: 8px;
+font-size: 16px;
+background-color: #fff;
+}
+
+form button {
+background-color: #3b82f6;
+color: white;
+border: none;
+padding: 12px 20px;
+border-radius: 8px;
+font-size: 16px;
+cursor: pointer;
+transition: background-color 0.3s ease;
+}
+
+form button:hover {
+background-color: #2563eb;
+}
+
+.site-footer {
+    background-color: #1f2937;
+    color: #f9fafc;
+    text-align: center;
+    padding: 20px 10px;
+    font-size: 16px;
+    margin-top: 60px;
+    border-top: 4px solid #3b82f6;
+  }
+  
+  .site-footer p {
+    margin: 0;
+    letter-spacing: 0.5px;
+  }
+  
+
+  /* ------------------ Responsive ------------------ */
+  @media (max-width: 768px) {
+    .about-container {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .intro-text, .intro-image {
+      width: 100%;
+    }
+
+    .intro-text h2 {
+      font-size: 30px;
+    }
+
+    .contact-form button {
+      width: 100%;
+    }
+  }

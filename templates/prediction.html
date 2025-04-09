@@ -31,15 +31,17 @@
           resultContainer.scrollIntoView({ behavior: "smooth" });
         }
       });
-
-      function askNameForReport() {
+  
+  function askNameForReport() {
     let name = "";
     while (!name) {
       name = prompt("Please enter your name to generate the report:");
-      if (name === null) return;  // User clicked Cancel
+      if (name === null) return; // User clicked Cancel
     }
     window.location.href = `/report?name=${encodeURIComponent(name)}`;
   }
+
+
 
     </script>
   </head>
@@ -59,69 +61,26 @@
         </form>
       </div>
 
-      <!-- <div id="result-container">
-        <h2 style="text-align: center">Prediction Result</h2>
-        {% if result %}
-          <p><strong>Status:</strong> {{ result['status'] }}</p>
-          {% if result["status"] == "Good Health" %}
-            <p>🎉 <strong>You are in Good Heart Health!</strong> 🎉</p>
-            <p><strong>A snapshot of your well-being in one graph.</strong></p>
-            <div style="text-align: center; margin-top: 20px; padding-top: 20px;">
-              <img src="{{ url_for('static', filename='graphs/' + result['graph_file_name']) }}" 
-                   alt="Heart Disease Risk Factors Graph" 
-                   style="width: 400px; height: 350px; border: 1px solid #ddd; border-radius: 5px;" />
-            </div>
-            <a href="{{ url_for('report') }}">
-              <button class="btn btn-outline-danger mt-4 me-5" type="button">Generate Report</button>
-            </a>
-          <script> triggerConfetti(); </script>
-          {% else %}
-            <p><strong>Detected Disease:</strong> {{ result['disease'] }}</p>
-            <p><strong>Symptoms Entered:</strong> {{ result['symptoms_entered'] }}</p>
-            <p><strong>Possible Causes:</strong></p>
-            <ul>
-              {% for cause in result["causes"] %}
-              <li>{{ cause }}</li>
-              {% endfor %}
-            </ul>
-            <p><strong>Suggested Treatment:</strong></p>
-            <ul>
-              {% for treatment in result["treatment"] %}
-              <li>{{ treatment }}</li>
-              {% endfor %}
-            </ul>
-            <h3><strong>Health Parameters Graph</strong></h3>
-            <p><strong>A snapshot of your well-being in one graph.</strong></p>
-            <div style="text-align: center; margin-top: 20px; padding-top: 20px;">
-              <img src="{{ url_for('static', filename='graphs/' + result['graph_file_name']) }}" 
-                   alt="Heart Disease Risk Factors Graph" 
-                   style="width: 400px; height: 350px; border: 1px solid #ddd; border-radius: 5px;" />
-            </div>
-            <a href="{{ url_for('report') }}">
-              <button class="btn btn-outline-danger mt-4 me-5" type="button">Generate Report</button>
-            </a>
-          {% endif %}
-        {% else %}
-          <p style="text-align: center; margin-top: 2rem;"><strong>Submit your details to check your heart health.</strong></p>
-        {% endif %}
-      </div>
-       -->
        <div id="result-container">
         <h2 style="text-align: center">Prediction Result</h2>
         {% if result %}
           <p><strong>Status:</strong> {{ result['status'] }}</p>
       
           {% if result["status"] == "Good Health" %}
-            <p>🎉 <strong>You are in Good Heart Health!</strong> 🎉</p>
+            <!-- <p>🎉 <strong>You are in Good Heart Health!</strong> 🎉</p> -->
+            <h2 style="font-size: 1.8rem; color: #28a745; text-align: center; margin-top: 20px;">
+              🎉 <strong>You are in Good Heart Health!</strong> 🎉
+            </h2>
+            
             <p><strong>A snapshot of your well-being in one graph.</strong></p>
             <div style="text-align: center; margin-top: 20px; padding-top: 20px;">
               <img src="{{ url_for('static', filename='graphs/' + result['graph_file_name']) }}" 
                    alt="Heart Disease Risk Factors Graph" 
                    style="width: 400px; height: 350px; border: 1px solid #ddd; border-radius: 5px;" />
             </div>
-            <a href="{{ url_for('report') }}">
-              <button class="btn btn-outline-danger mt-4 me-5" type="button">Generate Report</button>
-            </a>
+            <button onclick="askNameForReport()" class="btn btn-outline-danger mt-4 me-5" type="button">
+              Generate Report
+            </button>
             <script> triggerConfetti(); </script>
       
           {% else %}
@@ -174,9 +133,6 @@
                    alt="Heart Disease Risk Factors Graph" 
                    style="width: 400px; height: 350px; border: 1px solid #ddd; border-radius: 5px;" />
             </div>
-            <!-- <a href="{{ url_for('report') }}">
-              <button onclick="askNameForReport()" class="btn btn-outline-danger mt-4 me-5" type="button">Generate Report</button>
-            </a> -->
             <button onclick="askNameForReport()" class="btn btn-outline-danger mt-4 me-5" type="button">
               Generate Report
             </button>
